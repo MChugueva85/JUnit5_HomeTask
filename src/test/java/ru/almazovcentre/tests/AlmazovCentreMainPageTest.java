@@ -13,7 +13,7 @@ import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
-public class AlmazovCentreMainPageTest extends testBase {
+public class AlmazovCentreMainPageTest extends TestBase {
 
     static MainPage mainPage = new MainPage();
     @BeforeAll
@@ -30,9 +30,9 @@ public class AlmazovCentreMainPageTest extends testBase {
     static Stream<Arguments> almazovCentreLocaleTest() {
         return
                 Stream.of(
-                        Arguments.of(Locale.en, List.of("Home", "About", "Science", "Education", "Clinic", "For patients", "News", "Partners")),
-                        Arguments.of(Locale.ru, List.of("Главная", "О Центре", "Наука", "Образование", "Клиника", "Для пациента", "Новости", "Партнеры"))
-        );
+                        Arguments.of(Locale.EN, List.of("Home", "About", "Science", "Education", "Clinic", "For patients", "News", "Partners")),
+                        Arguments.of(Locale.RU, List.of("Главная", "О Центре", "Наука", "Образование", "Клиника", "Для пациента", "Новости", "Партнеры"))
+                );
     }
 
     @MethodSource
