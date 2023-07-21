@@ -1,17 +1,16 @@
 package ru.almazovcentre.tests;
 
-
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.*;
 import ru.almazovcentre.page.MainPage;
+import ru.almazovcentre.page.components.LocaleComponent;
+import ru.almazovcentre.page.components.NavigationSystemComponent;
+import ru.almazovcentre.page.components.ResultComponent;
+import ru.almazovcentre.page.components.SignificantSectionsComponent;
 
 import java.util.List;
 import java.util.stream.Stream;
-
-import static com.codeborne.selenide.CollectionCondition.texts;
-import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.*;
 
 public class AlmazovCentreMainPageTest extends TestBase {
 
@@ -34,14 +33,17 @@ public class AlmazovCentreMainPageTest extends TestBase {
                         Arguments.of(Locale.RU, List.of("Главная", "О Центре", "Наука", "Образование", "Клиника", "Для пациента", "Новости", "Партнеры"))
                 );
     }
-
+    LocaleComponent localeComponent = new LocaleComponent();
+    ResultComponent resultComponent = new ResultComponent();
+    NavigationSystemComponent navigationSystemComponent = new NavigationSystemComponent();
+    SignificantSectionsComponent significantSectionsComponent= new SignificantSectionsComponent();
     @MethodSource
     @DisplayName("При изменении языка должны поменяться названия заголовков")
     @ParameterizedTest
     void almazovCentreLocaleTest(Locale locale, List<String> expectedButtons) {
 
-        $$("#qtranslateslug-2 option").find(value("http://www.almazovcentre.ru/?lang=" + locale.name())).click();
-        $$("#nav a").filter(visible).should(texts(expectedButtons));
+        localeComponent.setLocale(locale);
+        resultComponent.checkLanguage(expectedButtons);
     }
 
     @ValueSource(strings = {"Администрация Центра", "Основатель Центра — Владимир Андреевич Алмазов",
@@ -54,16 +56,14 @@ public class AlmazovCentreMainPageTest extends TestBase {
     @DisplayName("Проверка ссылок во вкладке 'О Центре' на главной странице 'http://www.almazovcentre.ru/'")
     @ParameterizedTest(name = "При нажатии на ссылку {0} осуществляется переход на страницу {0}")
     void navigationSystemSubMenuTest(String name) {
-        $$("#nav a").find(text("О центре")).hover();
-        $$(".sub-menu a").find(text(name)).click();
-        $$(".posttitle").should(texts(name));
+        navigationSystemComponent.selectSection(name);
+        resultComponent.checkHeaderOfPage(name);
     }
     @CsvFileSource(resources = "/almazovCentreTest.csv")
     @DisplayName("Проверка ссылок в основном разделе главной страницы")
     @ParameterizedTest(name = "При нажатии на ссылку {0} осуществляется переход на страницу {1}")
     void significantSectionsOfMainPageTest(String name, String header){
-        $$(".online-services").find(text(name)).click();
-        $$(".posttitle").should(texts(header));
-
+        significantSectionsComponent.selectPage(name);
+        resultComponent.checkPageHeader(header);
     }
 }
