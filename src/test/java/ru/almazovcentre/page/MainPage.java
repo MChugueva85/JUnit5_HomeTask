@@ -2,6 +2,7 @@ package ru.almazovcentre.page;
 
 import com.codeborne.selenide.SelenideElement;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 
 public class MainPage {
@@ -13,8 +14,11 @@ public class MainPage {
         return this;
     }
 
-    public MainPage closeInfoMessage(){
+    public void closeInfoMessage(){
         infoMessage.click();
-        return this;
+    }
+
+    public void selectPage(String name){
+        $$(".online-services").find(text(name)).click();
     }
 }
