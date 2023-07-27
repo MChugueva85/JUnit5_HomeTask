@@ -17,6 +17,7 @@ public class MainPageTest extends TestBase {
     NavigationSystemComponent navigationSystemComponent = new NavigationSystemComponent();
     HeaderComponent headerComponent = new HeaderComponent();
     static MainPage mainPage = new MainPage();
+
     @BeforeAll
     static void informationTableClose() {
         mainPage.openPage()
@@ -24,7 +25,7 @@ public class MainPageTest extends TestBase {
     }
 
     @BeforeEach
-     void openPage() {
+    void openPage() {
         mainPage.openPage();
     }
 
@@ -35,10 +36,11 @@ public class MainPageTest extends TestBase {
                         Arguments.of(Locale.RU, List.of("Главная", "О Центре", "Наука", "Образование", "Клиника", "Для пациента", "Новости", "Партнеры"))
                 );
     }
+
     @MethodSource("headerButtonsDataProvider")
     @DisplayName("При изменении языка должны поменяться названия заголовков")
     @ParameterizedTest
-    void LocaleTest(Locale locale, List<String> expectedButtons) {
+    void localeTest(Locale locale, List<String> expectedButtons) {
 
         navigationSystemComponent.setLocale(locale);
         navigationSystemComponent.checkLanguage(expectedButtons);
@@ -57,10 +59,11 @@ public class MainPageTest extends TestBase {
         navigationSystemComponent.selectSection(name);
         postHeaderComponent.checkHeaderOfPage(name);
     }
+
     @CsvFileSource(resources = "/almazovCentreTest.csv")
     @DisplayName("Проверка ссылок в основном разделе главной страницы")
     @ParameterizedTest(name = "При нажатии на ссылку {0} осуществляется переход на страницу {1}")
-    void significantSectionsOfMainPageTest(String name, String header){
+    void significantSectionsOfMainPageTest(String name, String header) {
         mainPage.selectPage(name);
         headerComponent.checkPageHeader(header);
     }

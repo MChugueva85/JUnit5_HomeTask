@@ -6,7 +6,7 @@ import static com.codeborne.selenide.Selenide.$$;
 public class PostHeaderComponent {
 
 
-    public void checkHeaderOfPage(String name){
+    public void checkHeaderOfPage(String name) {
         $$(".posttitle").should(texts(name));
     }
 

@@ -7,18 +7,18 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class MainPage {
     SelenideElement
-    infoMessage = $("#vinny_close");
+            infoMessage = $("#vinny_close");
 
-    public MainPage openPage(){
-        open("http://www.almazovcentre.ru/");
+    public MainPage openPage() {
+        open("");
         return this;
     }
 
-    public void closeInfoMessage(){
+    public void closeInfoMessage() {
         infoMessage.click();
     }
 
-    public void selectPage(String name){
+    public void selectPage(String name) {
         $$(".online-services").find(text(name)).click();
     }
 }
