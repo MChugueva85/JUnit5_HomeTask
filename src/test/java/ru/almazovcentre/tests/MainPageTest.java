@@ -18,17 +18,6 @@ public class MainPageTest extends TestBase {
     HeaderComponent headerComponent = new HeaderComponent();
     static MainPage mainPage = new MainPage();
 
-    @BeforeAll
-    static void informationTableClose() {
-        mainPage.openPage()
-                .closeInfoMessage();
-    }
-
-    @BeforeEach
-    void openPage() {
-        mainPage.openPage();
-    }
-
     static Stream<Arguments> headerButtonsDataProvider() {
         return
                 Stream.of(
